@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visionary Brief</title>
+    <style>
+        :root { --paper: #fffcf5; --accent: #c0392b; }
+        body { font-family: 'Times New Roman', serif; background: #f4f1ea; margin: 0; padding: 15px; color: #1a1a1a; }
+        .container { max-width: 1200px; margin: auto; background: var(--paper); padding: 30px; border: 1px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        header { text-align: center; border-bottom: 5px double #000; margin-bottom: 20px; }
+        header h1 { font-size: clamp(30px, 8vw, 60px); margin: 10px 0; font-variant: small-caps; }
+        .columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: justify; }
+        article { border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        h3 { font-family: Arial; font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 5px; }
+        .dropcap { float: left; font-size: 60px; line-height: 45px; padding: 4px 6px 0 0; color: var(--accent); font-weight: bold; }
+        .footer { margin-top: 30px; border-top: 2px solid #000; padding-top: 15px; font-family: Arial; font-size: 12px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:12px; border-bottom:1px solid #000; padding-bottom:5px;">
+            <span>Wednesday, March 25, 2026</span>
+            <span>Morning Edition</span>
+        </div>
+        <h1>The Visionary Brief</h1>
+    </header>
+    <div class="columns">
+        <article>
+            <h3>Macroeconomics</h3>
+            <h2>Global Market Shift</h2>
+            <p><span class="dropcap">T</span>oday's global markets are reacting to new data from the FT and Bloomberg regarding supply chain resilience. The shift toward regional hubs is accelerating.</p>
+        </article>
+        <article>
+            <h3>Technology & AI</h3>
+            <h2>The Agentic Era</h2>
+            <p><span class="dropcap">A</span>I Agents are redefining productivity. According to MIT Tech Review, agentic workflows are now the standard for autonomous enterprise operations.</p>
+        </article>
+        <article>
+            <h3>History | 1947</h3>
+            <h2>Sovereignty & Order</h2>
+            <p><span class="dropcap">I</span>n 1947, the ability to maintain administrative order was key to international recognition. This lesson remains relevant in today's geopolitical landscape.</p>
+        </article>
+    </div>
+    <div class="footer">Sources: Financial Times, Bloomberg, WSJ, Reuters, MIT Tech Review.</div>
+</div>
+</body>
+</html>
