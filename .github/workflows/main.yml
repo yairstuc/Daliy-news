@@ -1,0 +1,25 @@
+name: Daily Brief Update
+on:
+  schedule:
+    - cron: '0 4 * * *' # רץ כל בוקר ב-06:00 זמן ישראל (4:00 UTC)
+  workflow_dispatch: # מאפשר לך להריץ ידנית אם תרצה
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Update News content
+        run: |
+          # כאן המערכת תמשוך את התוכן המעודכן ממני
+          # כרגע נשים דף בסיס, ובשלב הבא נחבר את ה-API
+          echo "Generating today's edition..." 
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name 'Visionary-Bot'
+          git config --global user.email 'bot@visionary.com'
+          git commit -am "Daily Update $(date)" || echo "No changes"
+          git push
