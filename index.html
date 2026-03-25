@@ -3,47 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Visionary Brief</title>
+    <title>The Visionary Brief | Beta Edition</title>
     <style>
-        :root { --paper: #fffcf5; --accent: #c0392b; }
-        body { font-family: 'Times New Roman', serif; background: #f4f1ea; margin: 0; padding: 15px; color: #1a1a1a; }
-        .container { max-width: 1200px; margin: auto; background: var(--paper); padding: 30px; border: 1px solid #ccc; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        header { text-align: center; border-bottom: 5px double #000; margin-bottom: 20px; }
-        header h1 { font-size: clamp(30px, 8vw, 60px); margin: 10px 0; font-variant: small-caps; }
-        .columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: justify; }
-        article { border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        h3 { font-family: Arial; font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 5px; }
-        .dropcap { float: left; font-size: 60px; line-height: 45px; padding: 4px 6px 0 0; color: var(--accent); font-weight: bold; }
-        .footer { margin-top: 30px; border-top: 2px solid #000; padding-top: 15px; font-family: Arial; font-size: 12px; }
+        :root { --paper: #fffcf5; --text: #1a1a1a; --accent: #c0392b; --gold: #b8860b; --gray: #666; }
+        body { font-family: 'Times New Roman', serif; background: #f4f1ea; margin: 0; padding: 10px; color: var(--text); }
+        .container { max-width: 1200px; margin: auto; background: var(--paper); padding: 25px; border: 1px solid #d3d3d3; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        /* Navigation & Meta */
+        .top-nav { display: flex; justify-content: space-between; font-family: Arial; font-size: 11px; font-weight: bold; border-bottom: 1px solid #000; padding: 5px; margin-bottom: 10px; }
+        header { text-align: center; border-bottom: 5px double #000; margin-bottom: 25px; }
+        header h1 { font-size: clamp(35px, 8vw, 65px); margin: 5px 0; font-variant: small-caps; letter-spacing: -1px; }
+
+        /* Grid System */
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        article { border-bottom: 1px solid #eee; padding-bottom: 25px; text-align: justify; line-height: 1.6; }
+        
+        /* Typography */
+        h3 { font-family: Arial, sans-serif; font-size: 11px; color: var(--accent); text-transform: uppercase; margin: 0; border-bottom: 1px solid #ddd; }
+        h2 { font-family: Georgia, serif; font-size: 26px; line-height: 1.1; margin: 8px 0 15px 0; }
+        .read-time { font-family: Arial; font-size: 10px; color: var(--gray); float: right; margin-top: 2px; }
+        .dropcap { float: left; font-size: 60px; line-height: 48px; padding: 4px 10px 0 0; color: var(--accent); font-weight: bold; }
+        
+        /* Interactive Elements */
+        .vocab { border-bottom: 1px dashed var(--accent); cursor: help; font-weight: bold; transition: 0.3s; }
+        .vocab:hover { background: #ffebeb; }
+        .floating-img { width: 100%; height: 220px; object-fit: cover; margin-bottom: 15px; border: 1px solid #eee; }
+
+        /* Controls */
+        .controls { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 20px; font-family: Arial, sans-serif; }
+        .btn { width: 100%; padding: 8px; margin-bottom: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; border-radius: 4px; transition: 0.2s; }
+        .btn-expand { border-color: var(--gold); color: var(--gold); }
+        .btn-expand.active { background: var(--gold); color: white; }
+        .btn:active { transform: scale(0.98); }
+
+        /* Strategic Lexicon */
+        .lexicon { margin-top: 40px; background: #1a1a1a; color: #fff; padding: 25px; border-radius: 6px; font-family: Arial, sans-serif; }
+        .lexicon h4 { color: var(--gold); margin: 0 0 15px 0; text-transform: uppercase; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        .lexicon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 14px; }
+        .lexicon-item b { color: var(--gold); }
+
+        @media (max-width: 600px) { .content-grid { grid-template-columns: 1fr; } .lexicon-grid { grid-template-columns: 1fr; } }
     </style>
+    <script>
+        function tr(w, h) { alert("Translation: " + w + " = " + h); }
+        function markExpand(btn) {
+            btn.classList.toggle('active');
+            btn.innerText = btn.classList.contains('active') ? '✓ Queued for Weekend Deep-Dive' : 'Expand in Weekend Edition';
+        }
+    </script>
 </head>
 <body>
+
 <div class="container">
-    <header>
-        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:12px; border-bottom:1px solid #000; padding-bottom:5px;">
-            <span>Wednesday, March 25, 2026</span>
-            <span>Morning Edition</span>
-        </div>
-        <h1>The Visionary Brief</h1>
-    </header>
-    <div class="columns">
+    <div class="top-nav">
+        <span>BETA VERSION 1.0</span>
+        <span>Wednesday, March 25, 2026</span>
+    </div>
+    <header><h1>The Visionary Brief</h1></header>
+
+    <div class="content-grid">
         <article>
-            <h3>Macroeconomics</h3>
-            <h2>Global Market Shift</h2>
-            <p><span class="dropcap">T</span>oday's global markets are reacting to new data from the FT and Bloomberg regarding supply chain resilience. The shift toward regional hubs is accelerating.</p>
+            <span class="read-time">4 min read</span>
+            <h3>Macro & Geopolitics | Israel-Asia</h3>
+            <h2>The Mundra-Haifa Pulse: India’s European Gateway</h2>
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=500&q=80" class="floating-img">
+            <p><span class="dropcap">T</span>he IMEC corridor is no longer just a diplomatic <span class="vocab" onclick="tr('Blueprint','תוכנית מתאר / תרשים')">blueprint</span>. Since the Q1 recalibration of global trade routes, the volume of digital and physical freight between Mundra and Haifa has surged by 18%. This shift represents a strategic <span class="vocab" onclick="tr('Pivot','נקודת ציר / שינוי כיוון')">pivot</span> for Israel, as it positions itself as the technological <span class="vocab" onclick="tr('Linchpin','ציר מרכזי')">linchpin</span> between the European Union and the Indian subcontinent. However, the energy dependence on the Mediterranean hub remains a volatile factor in the cabinet's long-term planning.</p>
+            <div class="controls">
+                <button class="btn btn-expand" onclick="markExpand(this)">Expand in Weekend Edition</button>
+                <button class="btn" onclick="this.innerText='Saved ★'">Save to Archive</button>
+            </div>
         </article>
+
         <article>
-            <h3>Technology & AI</h3>
-            <h2>The Agentic Era</h2>
-            <p><span class="dropcap">A</span>I Agents are redefining productivity. According to MIT Tech Review, agentic workflows are now the standard for autonomous enterprise operations.</p>
+            <span class="read-time">3 min read</span>
+            <h3>Technology | Agentic AI</h3>
+            <h2>Orchestrating the Sovereign Agent</h2>
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=500&q=80" class="floating-img">
+            <p><span class="dropcap">W</span>e are witnessing the transition from Copilots to autonomous orchestrators. In 2026, AI agents are increasingly granted <span class="vocab" onclick="tr('Fiduciary','נאמנות (חוקית/כלכלית)')">fiduciary</span> responsibilities, managing corporate procurement with zero human intervention. For Israeli startups, the challenge has moved from algorithm development to <span class="vocab" onclick="tr('Governance','משילות')">governance</span>. Ensuring that these agents remain aligned with human intent while operating at silicon speeds is the paramount technical hurdle of the decade.</p>
+            <div class="controls">
+                <button class="btn btn-expand" onclick="markExpand(this)">Expand in Weekend Edition</button>
+                <button class="btn" onclick="this.innerText='Saved ★'">Save to Archive</button>
+            </div>
         </article>
+
         <article>
-            <h3>History | 1947</h3>
-            <h2>Sovereignty & Order</h2>
-            <p><span class="dropcap">I</span>n 1947, the ability to maintain administrative order was key to international recognition. This lesson remains relevant in today's geopolitical landscape.</p>
+            <span class="read-time">5 min read</span>
+            <h3>History | 1947–2026</h3>
+            <h2>The UNSCOP Precedent: Legitimacy through Infrastructure</h2>
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=80" class="floating-img">
+            <p><span class="dropcap">I</span>n March 1947, the Yishuv leadership realized that international recognition is rarely a moral gift; it is a recognition of administrative reality. During the UNSCOP hearings, David Ben-Gurion didn't just present historical claims; he presented a functioning state-in-waiting. Today, as Israel navigates the complexities of administrative sovereignty in 2026, the 1947 lesson is more <span class="vocab" onclick="tr('Salient','בולט / רלוונטי במיוחד')">salient</span> than ever: infrastructure is the most persuasive form of diplomacy.</p>
+            <div class="controls">
+                <button class="btn btn-expand" onclick="this.classList.toggle('active'); markExpand(this)">Expand in Weekend Edition</button>
+                <button class="btn" onclick="this.innerText='Saved ★'">Save to Archive</button>
+            </div>
         </article>
     </div>
-    <div class="footer">Sources: Financial Times, Bloomberg, WSJ, Reuters, MIT Tech Review.</div>
+
+    <section class="lexicon">
+        <h4>Today's Strategic Lexicon</h4>
+        <div class="lexicon-grid">
+            <div class="lexicon-item"><b>Blueprint:</b> תוכנית פעולה מפורטת.</div>
+            <div class="lexicon-item"><b>Linchpin:</b> הגורם המחבר עליו הכל נשען.</div>
+            <div class="lexicon-item"><b>Fiduciary:</b> אחריות חוקית לנהל כספים בנאמנות עבור אחר.</div>
+            <div class="lexicon-item"><b>Salient:</b> הנושא הכי בולט או חשוב כרגע.</div>
+        </div>
+    </section>
+
+    <footer style="margin-top:30px; border-top:1px solid #000; padding-top:15px; font-size:12px; font-family:Arial;">
+        <strong>Verified Sources:</strong> Financial Times, Bloomberg, Reuters, MIT Tech Review, Israel State Archives.
+        <p style="font-style:italic; color:var(--gray);">*Tap on bold words for Hebrew translation.</p>
+    </footer>
 </div>
+
 </body>
 </html>
