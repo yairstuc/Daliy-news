@@ -1,13 +1,28 @@
 name: Daily Brief Update
 on:
   schedule:
-    - cron: '0 4 * * *'
-  workflow_dispatch:
+    - cron: '0 4 * * *' # רץ בכל בוקר ב-06:00 שעון ישראל
+  workflow_dispatch: # מאפשר לך להריץ ידנית לבדיקה
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
-      - name: Update
-        run: echo "Morning edition deployed successfully"
+
+      - name: Inject Daily Content
+        run: |
+          # כאן הבוט מזריק את התוכן המעודכן לתוך הקובץ
+          sed -i 's/{{DATE}}/Thursday, March 26, 2026/g' index.html
+          sed -i 's/{{TITLE1}}/The IMEC Pivot: Israel’s Indian Summer/g' index.html
+          sed -i 's/{{TITLE2}}/Orchestrating the Sovereign Agent/g' index.html
+          sed -i 's/{{TITLE3}}/The UNSCOP Gambit: 1947 Lessons/g' index.html
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "Visionary-Bot"
+          git config --global user.email "bot@visionary.brief"
+          git add index.html
+          git commit -m "Morning Edition Deployed: $(date)"
+          git push
