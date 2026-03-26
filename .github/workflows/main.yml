@@ -1,28 +1,27 @@
 name: Daily Brief Update
 on:
   schedule:
-    - cron: '0 4 * * *' # רץ בכל בוקר ב-06:00 שעון ישראל
-  workflow_dispatch: # מאפשר לך להריץ ידנית לבדיקה
-
+    - cron: '0 4 * * *'
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Inject Daily Content
         run: |
-          # כאן הבוט מזריק את התוכן המעודכן לתוך הקובץ
-          sed -i 's/{{DATE}}/Thursday, March 26, 2026/g' index.html
-          sed -i 's/{{TITLE1}}/The IMEC Pivot: Israel’s Indian Summer/g' index.html
-          sed -i 's/{{TITLE2}}/Orchestrating the Sovereign Agent/g' index.html
-          sed -i 's/{{TITLE3}}/The UNSCOP Gambit: 1947 Lessons/g' index.html
-
-      - name: Commit and Push changes
+          sed -i 's/\[\[DATE\]\]/Thursday, March 26, 2026/g' index.html
+          sed -i 's/\[\[TITLE1\]\]/The IMEC Pivot: Israel’s Indian Summer/g' index.html
+          sed -i 's/\[\[CONTENT1\]\]/The structural bifurcation of global markets has reached a critical threshold. Israel serves as the vital linchpin between India and Europe./g' index.html
+          sed -i 's/\[\[TITLE2\]\]/Orchestrating the Sovereign Agent/g' index.html
+          sed -i 's/\[\[CONTENT2\]\]/Agentic workflows have moved from pilots to pivotal assets. Sovereign Agents are managing budgets with zero oversight./g' index.html
+          sed -i 's/\[\[TITLE3\]\]/The UNSCOP Gambit: 1947 Lessons/g' index.html
+          sed -i 's/\[\[CONTENT3\]\]/History proves that when diplomatic channels freeze, establishing physical infrastructure becomes the best diplomacy./g' index.html
+      - name: Commit and Push
         run: |
           git config --global user.name "Visionary-Bot"
           git config --global user.email "bot@visionary.brief"
           git add index.html
-          git commit -m "Morning Edition Deployed: $(date)"
+          git commit -m "Automation Update"
           git push
