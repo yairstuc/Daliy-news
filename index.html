@@ -6,56 +6,47 @@
     <title>The Visionary Brief</title>
     <style>
         :root { --paper: #fffcf5; --accent: #c0392b; }
-        body { background: #1a1a1a; margin: 0; font-family: Arial, sans-serif; color: white; }
-        #authArea { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
-        .auth-input { padding: 15px; font-size: 18px; border-radius: 5px; border: none; margin: 10px; width: 200px; text-align: center; }
-        .auth-btn { padding: 10px 25px; background: var(--accent); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        #mainContent { display: none; background: var(--paper); color: #1a1a1a; min-height: 100vh; padding: 20px; font-family: 'Times New Roman', serif; }
-        .container { max-width: 800px; margin: auto; }
+        body { background: #1a1a1a; margin: 0; font-family: 'Times New Roman', serif; }
+        #authArea { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: white; }
+        .auth-input { padding: 15px; font-size: 18px; border-radius: 5px; margin: 10px; width: 200px; text-align: center; }
+        .auth-btn { padding: 10px 25px; background: var(--accent); color: white; border: none; cursor: pointer; }
+        #mainContent { display: none; background: var(--paper); padding: 20px; min-height: 100vh; }
+        .container { max-width: 1000px; margin: auto; border: 1px solid #ddd; padding: 30px; background: #fffcf5; }
         header { border-bottom: 3px double #000; text-align: center; margin-bottom: 20px; }
-        h1 { font-variant: small-caps; font-size: 40px; margin: 10px 0; }
-        article { border-bottom: 1px solid #ddd; padding-bottom: 20px; }
-        .vocab { border-bottom: 1px dashed var(--accent); font-weight: bold; cursor: pointer; }
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
     </style>
 </head>
 <body>
-
-<div id="authArea">
-    <h1>The Visionary Brief</h1>
-    <p>Private Access Only</p>
-    <input type="password" id="passInput" class="auth-input" placeholder="Enter Code">
-    <button class="auth-btn" onclick="checkPass()">Unlock</button>
-</div>
-
-<div id="mainContent">
-    <div class="container">
-        <header>
-            <div style="display:flex; justify-content: space-between; font-size: 10px; font-weight: bold;">
-                <span>STRATEGIC EDITION</span>
-                <span>MARCH 26, 2026</span>
-            </div>
-            <h1>The Visionary Brief</h1>
-        </header>
-        <article>
-            <h3 style="color: var(--accent); font-family: Arial; font-size: 12px; text-transform: uppercase;">Live Test Update</h3>
-            <h2 style="font-family: Georgia; font-size: 24px;">The System is Online</h2>
-            <p>If you can see this, the authentication worked. This is the 3-column strategic dashboard built for Yair Shtokelman.</p>
-            <p>Testing <span class="vocab" onclick="alert('Success = הצלחה')">Success</span>: Interactive elements are active.</p>
-        </article>
+    <div id="authArea">
+        <h1>The Visionary Brief</h1>
+        <input type="password" id="passInput" class="auth-input" placeholder="Enter Code">
+        <button class="auth-btn" onclick="checkPass()">Unlock</button>
     </div>
-</div>
 
-<script>
-    function checkPass() {
-        const input = document.getElementById('passInput').value;
-        if(input === '1996') {
-            document.getElementById('authArea').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-            document.body.style.background = '#f4f1ea';
-        } else {
-            alert('Access Denied');
+    <div id="mainContent">
+        <div class="container">
+            <header>
+                <div style="display:flex; justify-content: space-between; font-size: 12px;">
+                    <span>STRATEGIC EDITION</span>
+                    <span id="currentDate">[[DATE]]</span>
+                </div>
+                <h1>The Visionary Brief</h1>
+            </header>
+            <div class="content-grid">
+                <article><h2>[[TITLE1]]</h2><p>[[CONTENT1]]</p></article>
+                <article><h2>[[TITLE2]]</h2><p>[[CONTENT2]]</p></article>
+                <article><h2>[[TITLE3]]</h2><p>[[CONTENT3]]</p></article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkPass() {
+            if(document.getElementById('passInput').value === '1996') {
+                document.getElementById('authArea').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            } else { alert('Access Denied'); }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
