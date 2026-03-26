@@ -8,9 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Overwrite index.html with Today Content
+        uses: actions/checkout@v4
+      - name: Generate Today Edition
         run: |
           cat <<EOF > index.html
           <!DOCTYPE html>
@@ -30,21 +29,18 @@ jobs:
                   header { border-bottom: 3px double #000; text-align: center; margin-bottom: 20px; padding-bottom: 10px; }
                   .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
                   h2 { font-family: Georgia, serif; color: #1a1a1a; }
-                  .vocab { border-bottom: 1px dashed var(--accent); font-weight: bold; cursor: help; }
               </style>
           </head>
           <body>
               <div id="authArea">
                   <h1>The Visionary Brief</h1>
-                  <p>Private Intelligence - March 26, 2026</p>
                   <input type="password" id="passInput" class="auth-input" placeholder="Enter 1996">
-                  <button class="auth-btn" onclick="checkPass()">Unlock Edition</button>
+                  <button class="auth-btn" onclick="checkPass()">Unlock</button>
               </div>
-
               <div id="mainContent">
                   <div class="container">
                       <header>
-                          <div style="display:flex; justify-content: space-between; font-size: 12px; font-family: Arial; font-weight: bold;">
+                          <div style="display:flex; justify-content: space-between; font-size: 12px; font-weight: bold;">
                               <span>STRATEGIC EDITION</span>
                               <span>Thursday, March 26, 2026</span>
                           </div>
@@ -52,24 +48,23 @@ jobs:
                       </header>
                       <div class="content-grid">
                           <article>
-                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">MACROECONOMICS</h3>
+                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">MACRO</h3>
                               <h2>The IMEC Pivot: Israel’s Indian Summer</h2>
-                              <p>The structural bifurcation of global markets has reached a critical threshold. Israel serves as the vital linchpin between Indian manufacturing and European consumers. Analysts suggest that the recent shift reflects a deeper recalibration of supply chain risks.</p>
+                              <p>The structural bifurcation of global markets has reached a critical threshold. Haifa's port is now the primary linchpin for freight moving toward Europe.</p>
                           </article>
                           <article>
-                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">TECHNOLOGY | AI</h3>
-                              <h2>Orchestrating Autonomy: The Sovereign Agent</h2>
-                              <p>Agentic workflows have officially moved from experimental pilots to pivotal assets. In Q1 2026, the rise of "Sovereign Agents"—AI systems granted fiduciary responsibilities—is transforming procurement for the Israeli tech sector.</p>
+                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">TECH</h3>
+                              <h2>The Sovereign Agent</h2>
+                              <p>Agentic workflows have moved from experimental to pivotal assets. In Q1 2026, the rise of "Sovereign Agents" is transforming corporate governance.</p>
                           </article>
                           <article>
-                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">HISTORY | 1947</h3>
-                              <h2>The UNSCOP Precedent: Legitimacy & Resilience</h2>
-                              <p>In March 1947, the Yishuv faced a global deadlock. Today, the lesson remains salient: sovereignty is earned through the demonstration of civil order and the refusal to accept a leadership vacuum.</p>
+                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">HISTORY</h3>
+                              <h2>The UNSCOP Gambit: 1947 Lessons</h2>
+                              <p>In March 1947, David Ben-Gurion demonstrated viability through infrastructure. Today, international legitimacy is still based on sovereign reality.</p>
                           </article>
                       </div>
                   </div>
               </div>
-
               <script>
                   function checkPass() {
                       if(document.getElementById('passInput').value === '1996') {
@@ -82,11 +77,10 @@ jobs:
           </body>
           </html>
           EOF
-
       - name: Commit and Push
         run: |
           git config --global user.name "Visionary-Bot"
           git config --global user.email "bot@visionary.brief"
           git add index.html
-          git commit -m "Automation Update: Full Overwrite" || echo "No changes to commit"
+          git commit -m "Update Morning Edition" || echo "No changes"
           git push
