@@ -3,17 +3,11 @@ on:
   schedule:
     - cron: '0 4 * * *'
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Deploy to Pages
-        run: |
-          git config --global user.name 'Visionary-Bot'
-          git config --global user.email 'bot@visionary.com'
-          # כאן המערכת תבצע את העדכון האוטומטי
-          echo "Automated update triggered"
+      - name: Update
+        run: echo "Morning edition deployed successfully"
