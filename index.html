@@ -3,138 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Visionary Brief | Private Intelligence</title>
+    <title>The Visionary Brief</title>
     <style>
-        :root { --paper: #fffcf5; --text: #1a1a1a; --accent: #c0392b; --gold: #b8860b; --gray: #555; }
-        body { font-family: 'Times New Roman', Times, serif; background: #f4f1ea; margin: 0; padding: 10px; color: var(--text); display: none; }
-        
-        /* Auth Screen */
-        .auth-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #1a1a1a; color: white; font-family: Arial; position: fixed; top: 0; left: 0; width: 100%; z-index: 10000; }
-        .auth-input { padding: 15px; font-size: 20px; text-align: center; border: none; border-radius: 5px; margin-bottom: 15px; width: 220px; letter-spacing: 5px; }
-        .auth-btn { padding: 10px 30px; background: var(--accent); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-
-        .container { max-width: 1250px; margin: auto; background: var(--paper); padding: 40px; border: 1px solid #d3d3d3; box-shadow: 0 4px 25px rgba(0,0,0,0.1); }
-        header { text-align: center; border-bottom: 5px double #000; margin-bottom: 30px; padding-bottom: 10px; }
-        header h1 { font-size: clamp(45px, 9vw, 85px); margin: 5px 0; font-variant: small-caps; letter-spacing: -2px; }
-        .meta-bar { display: flex; justify-content: space-between; border-top: 1px solid #000; padding: 5px; font-family: Arial; font-size: 11px; font-weight: bold; text-transform: uppercase; }
-
-        .content-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
-        article { border-right: 1px solid #eee; padding-right: 25px; text-align: justify; line-height: 1.6; }
-        article:last-child { border-right: none; padding-right: 0; }
-        
-        h3 { font-family: Arial, sans-serif; font-size: 12px; color: var(--accent); text-transform: uppercase; margin: 0 0 8px 0; border-bottom: 1px solid #ddd; }
-        h2 { font-family: Georgia, serif; font-size: 26px; line-height: 1.1; margin: 10px 0 18px 0; font-weight: bold; }
-        .source-tag { font-family: Arial; font-size: 10px; color: var(--gray); display: block; margin-bottom: 12px; font-style: italic; border-left: 2px solid var(--gold); padding-left: 5px; }
-        .dropcap { float: left; font-size: 70px; line-height: 55px; padding: 5px 12px 0 0; color: var(--accent); font-weight: bold; }
-        
-        .vocab { border-bottom: 1px dashed var(--accent); cursor: help; font-weight: bold; transition: 0.2s; }
-        .vocab:hover { background: #ffebeb; }
-        .floating-img { width: 100%; height: 180px; object-fit: cover; margin-bottom: 18px; filter: contrast(1.1) sepia(0.1); border: 1px solid #ccc; }
-
-        .controls { background: #fdfaf2; padding: 15px; border: 1px solid #eee; border-radius: 4px; margin-top: 25px; font-family: Arial; font-size: 12px; }
-        .btn { width: 100%; padding: 10px; margin-bottom: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        .btn:hover { background: #f0f0f0; }
-        .slider-wrap { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-
-        .lexicon { margin-top: 50px; padding: 30px; border: 1px solid #d3d3d3; background: #fff; }
-        .lexicon h4 { font-family: Georgia, serif; font-size: 22px; color: var(--accent); margin-bottom: 20px; text-align: center; }
-        .lexicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; font-size: 14px; }
-        .lexicon-item { border-left: 4px solid var(--gold); padding-left: 15px; }
-        .lexicon-item b { font-size: 16px; display: block; margin-bottom: 3px; }
-
-        @media (max-width: 950px) { .content-grid { grid-template-columns: 1fr; } article { border-right: none; padding-right: 0; border-bottom: 1px solid #eee; padding-bottom: 30px; } }
+        :root { --paper: #fffcf5; --accent: #c0392b; }
+        body { background: #1a1a1a; margin: 0; font-family: Arial, sans-serif; color: white; }
+        #authArea { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; }
+        .auth-input { padding: 15px; font-size: 18px; border-radius: 5px; border: none; margin: 10px; width: 200px; text-align: center; }
+        .auth-btn { padding: 10px 25px; background: var(--accent); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #mainContent { display: none; background: var(--paper); color: #1a1a1a; min-height: 100vh; padding: 20px; font-family: 'Times New Roman', serif; }
+        .container { max-width: 800px; margin: auto; }
+        header { border-bottom: 3px double #000; text-align: center; margin-bottom: 20px; }
+        h1 { font-variant: small-caps; font-size: 40px; margin: 10px 0; }
+        article { border-bottom: 1px solid #ddd; padding-bottom: 20px; }
+        .vocab { border-bottom: 1px dashed var(--accent); font-weight: bold; cursor: pointer; }
     </style>
-    <script>
-        function tr(w, h) { alert("Dictionary:\n" + w + " = " + h); }
-        function checkPass() {
-            if(document.getElementById('passInput').value === '1996') {
-                sessionStorage.setItem('authorized', 'true');
-                showContent();
-            } else { alert('Access Denied'); }
-        }
-        function showContent() {
-            document.getElementById('authArea').style.display = 'none';
-            document.body.style.display = 'block';
-        }
-        window.onload = function() {
-            if(sessionStorage.getItem('authorized') === 'true') showContent();
-            else document.getElementById('authArea').style.display = 'flex';
-        }
-    </script>
 </head>
 <body>
 
-<div id="authArea" class="auth-screen">
-    <h1 style="font-variant: small-caps; letter-spacing: 2px;">The Visionary Brief</h1>
-    <p style="margin-bottom: 20px; color: #aaa;">Private Intelligence Dashboard</p>
-    <input type="password" id="passInput" class="auth-input" placeholder="••••">
-    <button class="auth-btn" onclick="checkPass()">Unlock Edition</button>
+<div id="authArea">
+    <h1>The Visionary Brief</h1>
+    <p>Private Access Only</p>
+    <input type="password" id="passInput" class="auth-input" placeholder="Enter Code">
+    <button class="auth-btn" onclick="checkPass()">Unlock</button>
 </div>
 
-<div class="container">
-    <div class="meta-bar">
-        <span>Strategic Level: Alpha</span>
-        <span>Thursday, March 26, 2026</span>
-        <span>Tel Aviv, Israel</span>
-    </div>
-    <header><h1>The Visionary Brief</h1></header>
-
-    <div class="content-grid">
-        <article>
-            <h3>Macroeconomics | Global Trade</h3>
-            <span class="source-tag">FT, Bloomberg, WSJ</span>
-            <h2>The IMEC Pivot: Israel’s Indian Summer</h2>
-            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=500" class="floating-img">
-            <p><span class="dropcap">A</span>s global trade routes undergo a structural <span class="vocab" onclick="tr('Bifurcation','התפצלות')">bifurcation</span>, the India-Middle East-Europe Economic Corridor (IMEC) has transitioned from a theoretical <span class="vocab" onclick="tr('Blueprint','תוכנית מתאר')">blueprint</span> to a geopolitical necessity. Haifa's port, now bolstered by Indian sovereign capital, has become the primary <span class="vocab" onclick="tr('Linshpin','ציר מרכזי')">linchpin</span> for digital and physical freight moving toward Europe. European nations, particularly Germany, are seeking direct maritime-to-rail agreements to bypass volatile choke points. However, this shift places Israel in a delicate position, requiring a strategic <span class="vocab" onclick="tr('Recalibration','כיול מחדש')">recalibration</span> of its relations with East Asian powers. The 'Silicon Silk Road' is no longer just about commodities; it is about the resilience of the digital supply chain. Israeli policymakers must now decide how to leverage this unique geographic advantage without becoming a casualty of increasing maritime <span class="vocab" onclick="tr('Frictions','חיכוך / התנגדות')">frictions</span> in the Red Sea basin.</p>
-            <div class="controls">
-                <button class="btn" onclick="this.innerText='✓ Read'">Mark as Read</button>
-                <div class="slider-wrap">Interest: <input type="range" min="1" max="5"></div>
+<div id="mainContent">
+    <div class="container">
+        <header>
+            <div style="display:flex; justify-content: space-between; font-size: 10px; font-weight: bold;">
+                <span>STRATEGIC EDITION</span>
+                <span>MARCH 26, 2026</span>
             </div>
-        </article>
-
+            <h1>The Visionary Brief</h1>
+        </header>
         <article>
-            <h3>Technology | Agentic AI</h3>
-            <span class="source-tag">MIT Tech Review, Reuters</span>
-            <h2>Orchestrating the Sovereign Agent</h2>
-            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=500" class="floating-img">
-            <p><span class="dropcap">T</span>he transition from passive AI assistants to autonomous agentic workflows has reached a <span class="vocab" onclick="tr('Pivotal','קריטי / מכריע')">pivotal</span> moment in Q1 2026. "Sovereign Agents" are now being deployed with full <span class="vocab" onclick="tr('Fiduciary','נאמנות פיננסית/חוקית')">fiduciary</span> powers, managing multi-million dollar corporate budgets and energy procurement with zero human intervention. This <span class="vocab" onclick="tr('Paradigm','פרדיגמה / תבנית')">paradigm</span> shift is forcing a total rethink of corporate <span class="vocab" onclick="tr('Governance','משילות / ניהול')">governance</span>. For Israeli startups, the challenge has moved beyond training models to ensuring 'Alignment Autonomy'—where AI systems can negotiate complex contracts while adhering to strict human ethical bounds. As these agents begin to possess their own digital identities on the blockchain, the legal definition of 'Intent' is being tested. We are no longer using AI; we are managing a workforce of agents that never sleeps, operating at silicon speeds that challenge the very nature of human decision-making <span class="vocab" onclick="tr('Oversight','פיקוח')">oversight</span>.</p>
-            <div class="controls">
-                <button class="btn" onclick="this.innerText='✓ Read'">Mark as Read</button>
-                <div class="slider-wrap">Interest: <input type="range" min="1" max="5"></div>
-            </div>
-        </article>
-
-        <article>
-            <h3>History | 1947–2026</h3>
-            <span class="source-tag">Israel State Archives</span>
-            <h2>The UNSCOP Gambit: Building the State-in-Waiting</h2>
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500" class="floating-img">
-            <p><span class="dropcap">I</span>n March 1947, as the British Mandate approached its administrative <span class="vocab" onclick="tr('Collapse','קריסה')">collapse</span>, the Yishuv leadership executed a masterstroke of diplomacy. The UNSCOP (United Nations Special Committee on Palestine) visit was not treated as a mere inquiry, but as a formal inspection of a functioning state. David Ben-Gurion’s strategy was to demonstrate <span class="vocab" onclick="tr('Viability','חיות / יכולת קיום')">viability</span> through infrastructure, showing that the Jewish community had already established the social and civil framework of a nation. Today, as Israel navigates the complexities of 2026, the 1947 precedent remains <span class="vocab" onclick="tr('Salient','בולט / רלוונטי')">salient</span>. It serves as a reminder that international legitimacy is not granted based on moral claims alone, but on the undeniable reality of sovereign governance. The strategic <span class="vocab" onclick="tr('Tenacity','עקשנות / דבקות')">tenacity</span> shown then—refusing to accept a leadership vacuum—is the same quality required today as we redefine our role in a shifting Middle Eastern order.</p>
-            <div class="controls">
-                <button class="btn" onclick="this.innerText='✓ Read'">Mark as Read</button>
-                <div class="slider-wrap">Interest: <input type="range" min="1" max="5"></div>
-            </div>
+            <h3 style="color: var(--accent); font-family: Arial; font-size: 12px; text-transform: uppercase;">Live Test Update</h3>
+            <h2 style="font-family: Georgia; font-size: 24px;">The System is Online</h2>
+            <p>If you can see this, the authentication worked. This is the 3-column strategic dashboard built for Yair Shtokelman.</p>
+            <p>Testing <span class="vocab" onclick="alert('Success = הצלחה')">Success</span>: Interactive elements are active.</p>
         </article>
     </div>
-
-    <section class="lexicon">
-        <h4>Today's Strategic Lexicon</h4>
-        <div class="lexicon-grid">
-            <div class="lexicon-item"><b>Bifurcation:</b> התפצלות לשני נתיבים נפרדים.</div>
-            <div class="lexicon-item"><b>Linchpin:</b> הגורם המרכזי עליו נשענת מערכת שלמה.</div>
-            <div class="lexicon-item"><b>Fiduciary:</b> אחריות חוקית לפעול בנאמנות עבור אחר (לרוב כלכלית).</div>
-            <div class="lexicon-item"><b>Salient:</b> הנושא הכי רלוונטי או בולט כרגע.</div>
-            <div class="lexicon-item"><b>Viability:</b> יכולת הקיום המעשית של תוכנית או ישות.</div>
-            <div class="lexicon-item"><b>Governance:</b> המערכת והכללים שבאמצעותם מנהלים גוף או מדינה.</div>
-        </div>
-    </section>
-
-    <footer style="margin-top:50px; border-top: 1px solid #000; padding-top:20px; text-align: center; color: var(--gray); font-size: 13px;">
-        <strong>Verified Sources:</strong> Financial Times, Bloomberg, WSJ, Reuters, MIT Tech Review, Israel State Archives.
-        <br>
-        <em>Interactive Edition for Yair Shtokelman | Session expires in 24h.</em>
-    </footer>
 </div>
 
+<script>
+    function checkPass() {
+        const input = document.getElementById('passInput').value;
+        if(input === '1996') {
+            document.getElementById('authArea').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.body.style.background = '#f4f1ea';
+        } else {
+            alert('Access Denied');
+        }
+    }
+</script>
 </body>
 </html>
