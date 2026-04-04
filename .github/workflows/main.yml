@@ -1,39 +1,46 @@
 name: Daily Brief Update
 on:
   schedule:
-    - cron: '0 4 * * *' # רץ ב-06:00 בבוקר שעון ישראל
-  workflow_dispatch: # מאפשר לך להריץ ידנית לבדיקה
-
+    - cron: '0 4 * * *'
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # קריטי: נותן לבוט רשות לכתוב למאגר
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           persist-credentials: true
 
-      - name: Generate Today Edition
+      - name: Overwrite index.html
         run: |
-          # כאן הבוט פשוט דורס את הקובץ עם ה-HTML המעודכן ביותר
           cat <<EOF > index.html
           <!DOCTYPE html>
           <html lang="en">
           <head>
               <meta charset="UTF-8">
-              <title>The Visionary Brief</title>
+              <title>The Visionary Brief | April 4</title>
               <style>
                   :root { --paper: #fffcf5; --accent: #c0392b; }
-                  body { background: #1a1a1a; margin: 0; font-family: 'Times New Roman', serif; }
-                  #mainContent { background: var(--paper); padding: 40px; min-height: 100vh; }
-                  .container { max-width: 1000px; margin: auto; border: 1px solid #ddd; padding: 30px; }
-                  h1 { text-align: center; border-bottom: 5px double #000; padding-bottom: 10px; }
-                  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+                  body { background: #1a1a1a; margin: 0; font-family: 'Times New Roman', serif; color: #1a1a1a; }
+                  #authArea { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; color: white; text-align: center; }
+                  .auth-input { padding: 15px; font-size: 18px; border-radius: 5px; margin: 10px; width: 200px; text-align: center; border: none; }
+                  .auth-btn { padding: 10px 25px; background: var(--accent); color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
+                  #mainContent { display: none; background: var(--paper); padding: 40px; min-height: 100vh; }
+                  .container { max-width: 1000px; margin: auto; border: 1px solid #ddd; padding: 30px; background: #fffcf5; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+                  header { border-bottom: 3px double #000; text-align: center; margin-bottom: 20px; padding-bottom: 10px; }
+                  .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
               </style>
           </head>
           <body>
+              <div id="authArea">
+                  <h1>The Visionary Brief</h1>
+                  <p>Private Edition: April 4, 2026</p>
+                  <input type="password" id="passInput" class="auth-input" placeholder="Enter 1996">
+                  <button class="auth-btn" onclick="checkPass()">Unlock</button>
+              </div>
               <div id="mainContent">
                   <div class="container">
                       <header>
@@ -43,13 +50,34 @@ jobs:
                           </div>
                           <h1>The Visionary Brief</h1>
                       </header>
-                      <div class="grid">
-                          <article><h3>MACRO</h3><h2>SpaceX IPO Logic</h2><p>The orbital infrastructure is shifting from venture to strategic asset class...</p></article>
-                          <article><h3>TECH</h3><h2>Agentic Fiduciary</h2><p>AI agents are moving into the C-suite with autonomous procurement power...</p></article>
-                          <article><h3>HISTORY</h3><h2>1947: UNSCOP Gamble</h2><p>Lessons from the UN referral that defined the pre-state era...</p></article>
+                      <div class="content-grid">
+                          <article>
+                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">MACRO</h3>
+                              <h2>The SpaceX IPO: Orbital Macroeconomics</h2>
+                              <p>SpaceX has filed for a $1.75T IPO, merging space infrastructure with xAI's agentic power. This signals the move of orbit into a mainstream asset class.</p>
+                          </article>
+                          <article>
+                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">TECH</h3>
+                              <h2>Agentic Fiduciaries: Ready for Prime Time?</h2>
+                              <p>The rise of "Sovereign Agents" manages enterprise budgets. MIT Sloan warns that hallucination audits are now the primary bottleneck for scaling.</p>
+                          </article>
+                          <article>
+                              <h3 style="color:var(--accent); font-family:Arial; font-size:12px;">HISTORY</h3>
+                              <h2>1947: The UN Referral Gambit</h2>
+                              <p>April 1947 marked the British referral of Palestine to the UN. The Yishuv used this to prove sovereign viability through infrastructure, not just claims.</p>
+                          </article>
                       </div>
                   </div>
               </div>
+              <script>
+                  function checkPass() {
+                      if(document.getElementById('passInput').value === '1996') {
+                          document.getElementById('authArea').style.display = 'none';
+                          document.getElementById('mainContent').style.display = 'block';
+                          document.body.style.background = '#f4f1ea';
+                      } else { alert('Access Denied'); }
+                  }
+              </script>
           </body>
           </html>
           EOF
@@ -59,5 +87,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Automated Morning Edition: $(date)" || echo "No changes to commit"
-          git push origin main
+          # מנסה לדחוף ל-main, ואם נכשל מנסה ל-master
+          git commit -m "Automated Morning Edition: April 4" || echo "No changes to commit"
+          git push origin HEAD:main --force || git push origin HEAD:master --force
